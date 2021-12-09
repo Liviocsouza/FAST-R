@@ -40,7 +40,7 @@ if __name__ == "__main__":
     if not os.path.exists(directory + "measures/"):
         os.makedirs(directory + "measures/")
 
-    repeats = 50
+    repeats = 3
 
     # FAST-R parameters
     k, n, r, b = 5, 10, 1, 10
