@@ -74,20 +74,10 @@ class TelaFastR:
             sg.Radio('Branch','coverage',key='branch')],
 
             [sg.Text('3.Escolha o projeto e versão :')],
-            [sg.Radio('Flex v3','entity',key='flex'),
-            sg.Radio('Flex v3','entity',key='flex'),
-            sg.Radio('Grep v3','entity',key='grep'),
-            sg.Radio('Gzip v1','entity',key='gzip'),
-            sg.Radio('Make v1','entity',key='make'),
-            sg.Radio('Sed v6','entity',key='sed'),
-            sg.Radio('Chart v0','entity',key='chart'),
-            sg.Radio('Closure v0','entity',key='closure'),
-            sg.Radio('Lang v0','entity',key='lang'),
-            sg.Radio('Math v0','entity',key='math'),
-            sg.Radio('Time v0','entity',key='time')],
+            [sg.Combo(['flex v3', 'grep v3', 'gzip v1', 'make v1', 'sed v6', 'Chart v0', 'closure v0', 'lang v0', 'math v0', 'time v0'], '', key='combo')],
+            [sg.Output(size=(80, 20))],
 
-            [sg.Text('4.Escolha quantidade de repetições :'), sg.Input(size=(15,0), key='repeticao')],
-             [sg.Button('2')],
+
             [sg.Button('Executar teste')]
         ]
         self.janela = sg.Window("Dados Usuario").layout(layout)
@@ -95,11 +85,13 @@ class TelaFastR:
     def Iniciar(self):
         while True:
 
-            senario = ""
+            cenario = ""
             cobertura = ""
             projeto = ""
             self.button, self.values = self.janela.Read()
-            repeticao = self.values['repeticao']
+            # repeticao = self.values['repeticao']
+
+            projeto = self.values['combo']
 
             budget = self.values['budget']
             adequate = self.values['adequate']
@@ -108,17 +100,17 @@ class TelaFastR:
             line = self.values['line']
             branch = self.values['branch']
 
-            flex = self.values['flex']
-            grep = self.values['grep']
-            gzip = self.values['gzip']
-            make = self.values['make']
-            sed = self.values['sed']
-            chart = self.values['chart']
+            # flex = self.values['flex']
+            # grep = self.values['grep']
+            # gzip = self.values['gzip']
+            # make = self.values['make']
+            # sed = self.values['sed']
+            # chart = self.values['chart']
 
             if(budget == True):
-                senario = "experimentBudget.py"
+                cenario = "experimentBudget.py"
             elif(adequate == True):
-                senario = "experimentAdequate.py"
+                cenario = "experimentAdequate.py"
 
             if(function == True):
                 cobertura = "function"
@@ -127,38 +119,19 @@ class TelaFastR:
             elif(branch == True):
                 cobertura = "branch"
 
-            if(flex == True):
-                projeto = "TestParameterInjector v1"
-                # projeto = "flex v3"
-            elif(grep == True):
-                projeto = "grep v3"
-            elif(gzip == True):
-                projeto = "gzip v1"
-            elif(chart == True):
-                projeto = "chart v0"
            
             if(self.button == '2'):
                fileNames = filedialog.askdirectory()
                print(fileNames)
                parameterizer(fileNames,"bbox")
            
-            # executarCmd = f'py py/{senario} {cobertura} {projeto} {repeticao}'
-            executarCmd = f'py py/{senario} {cobertura} {projeto}'
-            print(executarCmd)
-           # os.system('py experimentBudget.py function flex v3 10')
-           # subprocess.run(['py experimentBudget.py function flex v3 10'], stderr=sys.stderr, stdout=sys.stdout)
+           
+            executarCmd = f'py py/{cenario} {cobertura} {projeto}'
             process = subprocess.Popen(executarCmd, stdout=subprocess.PIPE)
             output, error = process.communicate()
-
-            if(process.returncode == 0):
-                print("Done:")
-            else:
-                print("Failed:")
-
             print(output)
-            # print(self.values)
+           
 
 
 tela = TelaFastR()
 tela.Iniciar()
-
