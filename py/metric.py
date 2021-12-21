@@ -49,7 +49,7 @@ def fft(selection, faultMatrix, javaFlag):
 def tsr(selection, inputFile):
     with open(inputFile) as fIn:
         numOfTCS = sum((1 for line in fIn))
-    return (numOfTCS - len(selection)) / numOfTCS
+    return (numOfTCS - len(selection)) / numOfTCS, numOfTCS
 
 # Fault Detection Loss (FDL)
 def fdl(selection, faultMatrix, javaFlag):
