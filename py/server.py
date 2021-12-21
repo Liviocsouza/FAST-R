@@ -74,11 +74,11 @@ def olamundo():
 @app.route("/executaFastR", methods=["POST"])
 def cadastraUsuario():
     body = request.get_json()
-    senario= body['senario']
+    cenario= body['cenario']
     cobertura= body['cobertura']
     projeto= body['projeto']
 
-    executarCmd = f'py D:/back-end/FAST-R/py/{senario} {cobertura} {projeto}'
+    executarCmd = f'py D:/back-end/FAST-R/py/{cenario} {cobertura} {projeto}'
     print(executarCmd)
             # os.system('py experimentBudget.py function flex v3 10')
             # subprocess.run(['py experimentBudget.py function flex v3 10'], stderr=sys.stderr, stdout=sys.stdout)
